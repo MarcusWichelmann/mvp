@@ -1,6 +1,6 @@
 <?php
     include '_templates/sitewide.php';
-    $page['title'] = 'Developer Chat &sdot; elementary';
+    $page['title'] = 'Developer Chat';
     include $template['header'];
 ?>
             <script>
