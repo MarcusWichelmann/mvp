@@ -95,9 +95,15 @@
         }
     }
 
-    function send_message (message) {
+    function send_message (msg) {
         if (connected && logged_in) {
-            // TODO: Send message
+            send_json ({
+                action: 'message',
+                id: client_id,
+                data: {
+                    message: msg
+                }
+            });
         } else {
             console.warn ('Not logged in');
         }
@@ -112,7 +118,6 @@
                     if (json.ok) {
                         set_view ('chat');
                     } else {
-                        set_view ('login');
                         // TODO display error_messages[json.data.error]
                     }
 
@@ -122,9 +127,27 @@
                         set_view ('login');
                         client_id = "";
                     } else {
-                        set_view ('login');
                         // TODO display error_messages[json.data.error]
                     }
+
+                    break;
+                case 'ack_message':
+                    if (json.ok) {
+                        // clear entry
+                    } else {
+                        // TODO display error_messages[json.data.error]
+                    }
+
+                    break;
+                case 'message':
+                    var now = new Date ();
+                    var time_str = now.getHours () + ':' + now.getMinutes () + ':' + now.getSeconds ();
+
+                    $(".chat-history").append (create_message_html (json.data.sender, time_str, json.data.message));
+
+                    break;
+                default:
+                    console.warn ('Unsupported action "' + json.action + '"');
 
                     break;
             }
