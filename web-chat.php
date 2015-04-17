@@ -28,8 +28,16 @@
                 <button class="chat-submit suggested-action">Send</button>
             </div>
 
-            <div class="row view network-failure">
-                grr
+            <div class="row view network-failure alert warning">
+                <div class="column alert">
+                    <div class="icon">
+                        <i class="warning fa fa-warning"></i>
+                    </div>
+                    <div class="icon-text">
+                        <h3>Connection failed</h3>
+                        <p>Connecting to server failed, please try it again later. If this problem persists please contact the elementary web-team.<br /><br />Sorry for the inconvenience!</p>
+                    </div>
+                </div>
             </div>
 <?php
     include $template['footer'];
