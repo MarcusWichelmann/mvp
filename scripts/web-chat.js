@@ -48,7 +48,7 @@
 
         console.log ('Connection closed.');
 
-        set_view ('network-failure');
+        set_view ('disconnected');
     };
 
     socket.onmessage = data_received;
@@ -186,12 +186,12 @@
     }
 
     function set_view (view) {
-        $('.view.connecting').hide ();
-        $('.view.login').hide ();
-        $('.view.chat').hide ();
-        $('.view.network-failure').hide ();
+        $('section#connecting-view').hide ();
+        $('section#login-view').hide ();
+        $('section#chat-view').hide ();
+        $('section#disconnected-view').hide ();
 
-        $('.view.' + view).show ();
+        $('section#' + view + '-view').show ();
     }
 
 })();
