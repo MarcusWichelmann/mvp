@@ -16,7 +16,7 @@
     var connected = false;
     var logged_in = false;
 
-    var nick_name = "anonymous";
+    var nick_name = "";
 
 
     // <<< Initialization >>>
@@ -43,6 +43,8 @@
     socket.onclose = function () {
         connected = false;
         logged_in = false;
+
+        nick_name = "";
 
         console.log ('Connection closed.');
 
@@ -131,7 +133,7 @@
             case 'ack_logout':
                 if (json.ok) {
                     set_view ('login');
-                    client_id = "";
+                    nick_name = "";
                 } else {
                     // TODO display error_messages[json.data.error]
                 }
