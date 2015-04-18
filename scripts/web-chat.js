@@ -1,28 +1,32 @@
 (function () {
 
-    // Configuration
+    // <<< Configuration >>>
 
-    var server = 'ws://elementary.io';
+    // Chat-Host
+    var server = 'ws://localhost:8080/chat';
+
+    // Set to true to enable debugging
+    var debug = true;
 
 
-    // Variables
+    // <<< Variables >>>
 
     var socket;
-
-    var client_id = "";
 
     var connected = false;
     var logged_in = false;
 
+    var nick_name = "anonymous";
 
-    // Initialization
+
+    // <<< Initialization >>>
 
     console.log ('Loaded web-chat.js');
 
     connect (server);
 
 
-    // Events
+    // <<< Events >>>
 
     socket.onopen = function () {
         connected = true;
@@ -40,8 +44,6 @@
         connected = false;
         logged_in = false;
 
-        client_id = "";
-
         console.log ('Connection closed.');
 
         set_view ('network-failure');
@@ -50,7 +52,11 @@
     socket.onmessage = data_received;
 
     $('.login-submit').click (function () {
-        client_id = $('.login-username').val ();
+        nick_name = $('.login-username').val ();
+
+        if (debug)
+            console.log ('Nickname set to: ' + nick_name);
+
         login ();
     });
 
@@ -59,7 +65,7 @@
     });
 
 
-    // Functions
+    // <<< Functions >>>
 
     function connect (host) {
         if (!connected) {
@@ -76,7 +82,7 @@
             send_json ({
                 action: 'login',
                 data: {
-                    nick: client_id
+                    nick: nick_name
                 }
             });
         } else {
@@ -88,7 +94,6 @@
         if (connected && logged_in) {
             send_json ({
                 action: 'logout',
-                id: client_id
             });
         } else {
             console.warn ('Not logged in');
@@ -99,7 +104,6 @@
         if (connected && logged_in) {
             send_json ({
                 action: 'message',
-                id: client_id,
                 data: {
                     message: msg
                 }
@@ -112,53 +116,59 @@
     function data_received (event) {
         var json = JSON.parse (event.data);
 
-        if (json.id == client_id) {
-            switch (json.action) {
-                case 'ack_login':
-                    if (json.ok) {
-                        set_view ('chat');
-                    } else {
-                        // TODO display error_messages[json.data.error]
-                    }
+        if (debug)
+            console.log ('Response: ' + json);
 
-                    break;
-                case 'ack_logout':
-                    if (json.ok) {
-                        set_view ('login');
-                        client_id = "";
-                    } else {
-                        // TODO display error_messages[json.data.error]
-                    }
+        switch (json.action) {
+            case 'ack_login':
+                if (json.ok) {
+                    set_view ('chat');
+                } else {
+                    // TODO display error_messages[json.data.error]
+                }
 
-                    break;
-                case 'ack_message':
-                    if (json.ok) {
-                        // clear entry
-                    } else {
-                        // TODO display error_messages[json.data.error]
-                    }
+                break;
+            case 'ack_logout':
+                if (json.ok) {
+                    set_view ('login');
+                    client_id = "";
+                } else {
+                    // TODO display error_messages[json.data.error]
+                }
 
-                    break;
-                case 'message':
-                    var now = new Date ();
-                    var time_str = now.getHours () + ':' + now.getMinutes () + ':' + now.getSeconds ();
+                break;
+            case 'ack_message':
+                if (json.ok) {
+                    // clear entry
+                } else {
+                    // TODO display error_messages[json.data.error]
+                }
 
-                    $(".chat-history").append (create_message_html (json.data.sender, time_str, json.data.message));
+                break;
+            case 'message':
+                var now = new Date ();
+                var time_str = now.getHours () + ':' + now.getMinutes () + ':' + now.getSeconds ();
 
-                    break;
-                default:
-                    console.warn ('Unsupported action "' + json.action + '"');
+                $(".chat-history").append (create_message_html (json.data.sender, time_str, json.data.message));
 
-                    break;
-            }
+                break;
+            default:
+                console.warn ('Unsupported action "' + json.action + '"');
+
+                break;
         }
     }
 
     function send_json (arr) {
-        if (connected && logged_in) {
+        if (connected) {
+            var json = JSON.stringify (arr);
+
+            if (debug)
+                console.log ('Request: ' + json);
+
             socket.send (JSON.stringify (arr));
         } else {
-            console.warn ('Not logged in');
+            console.warn ('Not connected');
         }
     }
 
