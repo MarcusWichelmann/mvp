@@ -25,7 +25,21 @@
 
     connect (server);
 
-
+/* For debugging the design
+set_view ('chat');
+$('.chat-history').append (create_message_html ('the dark lord', '15:47:23', 'Testmessage'));
+$('.chat-history').append (create_message_html ('the choosen one', '15:48:32', 'Unus duo tre quatour quinque sex septem octo novem decem'));
+$('.chat-history').append (create_message_html ('snape', '15:49:12', 'Grrrr.. ;)'));
+$('.chat-history').append (create_message_html ('the dark lord', '15:47:23', 'Testmessage'));
+$('.chat-history').append (create_message_html ('the choosen one', '15:48:32', 'Unus duo tre quatour quinque sex septem octo novem decem'));
+$('.chat-history').append (create_message_html ('snape', '15:49:12', 'Grrrr.. ;)'));
+$('.chat-history').append (create_message_html ('the dark lord', '15:47:23', 'Testmessage'));
+$('.chat-history').append (create_message_html ('the choosen one', '15:48:32', 'Unus duo tre quatour quinque sex septem octo novem decem'));
+$('.chat-history').append (create_message_html ('snape', '15:49:12', 'Grrrr.. ;)'));
+$('.chat-history').append (create_message_html ('the dark lord', '15:47:23', 'Testmessage'));
+$('.chat-history').append (create_message_html ('the choosen one', '15:48:32', 'Unus duo tre quatour quinque sex septem octo novem decem'));
+$('.chat-history').append (create_message_html ('snape', '15:49:12', 'Grrrr.. ;)'));
+*/
     // <<< Events >>>
 
     socket.onopen = function () {
@@ -186,12 +200,8 @@
     }
 
     function set_view (view) {
-        $('section#connecting-view').hide ();
-        $('section#login-view').hide ();
-        $('section#chat-view').hide ();
-        $('section#disconnected-view').hide ();
-
-        $('section#' + view + '-view').show ();
+        $('section.view').hide ();
+        $('section.view.' + view).show ();
     }
 
 })();
