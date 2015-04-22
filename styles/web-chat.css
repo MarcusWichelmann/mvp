@@ -1,8 +1,8 @@
 html,
 body {
-    background-color: #244a30;
-    color: #c2cfc2;
-    fill: #c2cfc2;
+    background-color: #FDF6E3;
+    color: #586E75;
+    fill: #586E75;
 }
 
 div.row.hero {
@@ -10,34 +10,9 @@ div.row.hero {
 }
 
 /* SECTIONS */
-section#connecting-view {
-    font-size: 0.8em;
-}
-
-section#login-view {
-    color: #244a30;
-    background-color: #FDF6E3;
-}
-
-section#login-view,
-section#irc-view {
-    padding-bottom: 96px;
-}
-
-section#login-view h2,
-section#irc-view h2 {
-    text-align: left;
-}
-
 section#chat-view {
-    color: #244a30;
-    background-color: #FDF6E3;
-}
-
-section#chat-view div#messages
-{
-    overflow: auto;
-    height: 500px;
+    padding-top: 80px;
+    padding-bottom: 160px;
 }
 
 section#chat-view div.message
@@ -47,13 +22,13 @@ section#chat-view div.message
 
 section#chat-view div.message span.irc-username
 {
-    font-weight: 600;
+    font-weight: 700;
 }
 
 section#chat-view div.message span.irc-timestamp
 {
-    margin-left: 5px;
-    font-size: 0.8em;
+    margin-left: 7px;
+    font-weight: 300;
 }
 
 section#chat-view div.message p.message-text
@@ -63,21 +38,40 @@ section#chat-view div.message p.message-text
     font-size: 0.8em;
 }
 
-section#chat-view div#new-message
-{
-    background-color: rgba(0, 0, 0, 0.04);
+section#new-message-bar {
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    background-color: #EEE8D5;
 }
 
-section#chat-view input {
-    width: 60%;
+/* SPECIAL */
+span.irc-address {
+    background-color: #E3E1D3;
+    border: 1px solid #C8CCC2;
+    border-radius: 3px;
+    padding: 3px 4px;
+    font-family: monospace;
 }
 
-section#disconnected-view {
-    color: #716300;
-    background-color: #ffdc79;
+/* INPUTS */
+.flat {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    padding: 7px;
 }
 
-/* BUTTONS */
-button.small {
-    padding: 4px 12px;
+button.flat {
+    background-color: #268BD2;
+    border: 2px solid #268BD2;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+input[type=text].flat {
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 2px solid #93A1A1;
+    color: #9BA8AC;
+    font-size: 1em;
 }

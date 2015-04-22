@@ -25,7 +25,7 @@
 
     connect (server);
 
-/* For debugging the design
+/* // For debugging the design
 set_view ('chat');
 $('.chat-history').append (create_message_html ('the dark lord', '15:47:23', 'Testmessage'));
 $('.chat-history').append (create_message_html ('the choosen one', '15:48:32', 'Unus duo tre quatour quinque sex septem octo novem decem'));
@@ -40,6 +40,8 @@ $('.chat-history').append (create_message_html ('the dark lord', '15:47:23', 'Te
 $('.chat-history').append (create_message_html ('the choosen one', '15:48:32', 'Unus duo tre quatour quinque sex septem octo novem decem'));
 $('.chat-history').append (create_message_html ('snape', '15:49:12', 'Grrrr.. ;)'));
 */
+
+
     // <<< Events >>>
 
     socket.onopen = function () {
@@ -202,6 +204,21 @@ $('.chat-history').append (create_message_html ('snape', '15:49:12', 'Grrrr.. ;)
     function set_view (view) {
         $('section.view').hide ();
         $('section.view.' + view).show ();
+
+        if (view == 'chat') {
+            $('footer, .row.hero').hide ();
+            $('nav').css ({
+                position: 'fixed',
+                top: '0',
+                width: '100%',
+                backgroundColor: '#FDF6E3'
+            });
+        } else {
+            $('footer, .row.hero').show ();
+            $('nav').css ({
+                position: 'relative',
+            });
+        }
     }
 
 })();

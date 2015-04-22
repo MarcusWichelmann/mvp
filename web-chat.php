@@ -25,35 +25,19 @@
             <section id="login-view" class="view login">
                 <div class="row">
                     <div class="column half">
-                        <h2>Web-Chat</h2>
+                        <h2>Web Chat</h2>
                         <p>
-                            Get qualified help by the creators of elementary OS without leaving your browser!
-                            Thanks to an automatic link to our IRC and slack channels you have access to a big community of contributers.
+                            Use the web chat to contact elementary contributers that are in our virtual office, Slack.
                         </p>
-                        <p>
-                            Please choose an username to start the chat!
-                        </p>
+                        <input class="login-username flat" type="text" />
+                        <button class="login-submit flat">Login</button>
                     </div>
                     <div class="column half">
-                        <input class="login-username" type="text" />
-                        <button class="login-submit button flat suggested-action small">Login</button>
-                    </div>
-                </div>
-            </section>
-            <section id="irc-view" class="view login">
-                <div class="row">
-                    <div class="column half">
-                        <h2>IRC-Channel</h2>
+                        <h2>IRC</h2>
                         <p>
-                            You do not want to use the web-chat?
+                            Would you rather use your own IRC client? Use the address <span class="irc-address">elementary-dev.freenode.net</span>
+                            to connect to our irc chatroom.
                         </p>
-                        <p>
-                            No problem, just open your favourite IRC-Client
-                            and connect to the server address on the right.
-                        </p>
-                    </div>
-                    <div class="column half">
-                        <tt><h3>elementary-dev.freenode.net</h3></tt>
                     </div>
                 </div>
             </section>
@@ -62,18 +46,28 @@
                 <div id="messages">
                     <div class="row chat-history"></div>
                 </div>
-                <div id="new-message">
-                    <div class="row">
-                        <input class="chat-message" type="text" />
-                        <button class="chat-submit suggested-action small">Send</button>
-                    </div>
+            </section>
+
+            <section id="new-message-bar" class="view chat">
+                <div class="row">
+                    <input class="chat-message flat" type="text" />
+                    <button class="chat-submit flat">Send</button>
                 </div>
             </section>
 
             <section id="disconnected-view" class="view disconnected">
-                <div class="row">
-                    <h3>Connection failed</h3>
-                    <p>Connecting to server failed, please try it again later. If this problem persists please contact the elementary web-team.<br /><br />Sorry for the inconvenience!</p>
+                <div class="row alert warning">
+                    <div class="column alert">
+                        <div class="icon">
+                            <i class="warning fa fa-warning"></i>
+                        </div>
+                        <div class="icon-text">
+                            <h3>Connection failed</h3>
+                            <p>
+                                Connecting to server failed, please try it again later. If this problem persists please contact the elementary web-team.<br /><br />Sorry for the inconvenience!
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </section>
 <?php
