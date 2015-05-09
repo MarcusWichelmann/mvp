@@ -3,7 +3,7 @@
     // <<< Configuration >>>
 
     // Chat-Host
-    var server = 'ws://localhost:8080/chat';
+    var server = 'ws://localhost:8081/chat';
 
     // Set to true to enable debugging
     var debug = true;
@@ -24,22 +24,6 @@
     console.log ('Loaded web-chat.js');
 
     connect (server);
-
-/* // For debugging the design
-set_view ('chat');
-$('.chat-history').append (create_message_html ('the dark lord', '15:47:23', 'Testmessage'));
-$('.chat-history').append (create_message_html ('the choosen one', '15:48:32', 'Unus duo tre quatour quinque sex septem octo novem decem'));
-$('.chat-history').append (create_message_html ('snape', '15:49:12', 'Grrrr.. ;)'));
-$('.chat-history').append (create_message_html ('the dark lord', '15:47:23', 'Testmessage'));
-$('.chat-history').append (create_message_html ('the choosen one', '15:48:32', 'Unus duo tre quatour quinque sex septem octo novem decem'));
-$('.chat-history').append (create_message_html ('snape', '15:49:12', 'Grrrr.. ;)'));
-$('.chat-history').append (create_message_html ('the dark lord', '15:47:23', 'Testmessage'));
-$('.chat-history').append (create_message_html ('the choosen one', '15:48:32', 'Unus duo tre quatour quinque sex septem octo novem decem'));
-$('.chat-history').append (create_message_html ('snape', '15:49:12', 'Grrrr.. ;)'));
-$('.chat-history').append (create_message_html ('the dark lord', '15:47:23', 'Testmessage'));
-$('.chat-history').append (create_message_html ('the choosen one', '15:48:32', 'Unus duo tre quatour quinque sex septem octo novem decem'));
-$('.chat-history').append (create_message_html ('snape', '15:49:12', 'Grrrr.. ;)'));
-*/
 
 
     // <<< Events >>>
@@ -135,11 +119,13 @@ $('.chat-history').append (create_message_html ('snape', '15:49:12', 'Grrrr.. ;)
         var json = JSON.parse (event.data);
 
         if (debug)
-            console.log ('Response: ' + json);
+            console.log ('Response: ' + event.data);
 
         switch (json.action) {
             case 'ack_login':
                 if (json.ok) {
+                    logged_in = true;
+
                     set_view ('chat');
                 } else {
                     // TODO display error_messages[json.data.error]
@@ -157,7 +143,7 @@ $('.chat-history').append (create_message_html ('snape', '15:49:12', 'Grrrr.. ;)
                 break;
             case 'ack_message':
                 if (json.ok) {
-                    // clear entry
+                    $('.chat-message').val ("");
                 } else {
                     // TODO display error_messages[json.data.error]
                 }
